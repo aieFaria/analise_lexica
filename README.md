@@ -1,6 +1,6 @@
 # 📝 Análise léxica
 Repositório para o desenvolvimento da avaliação 1, referente a disciplina de Compiladores
-
+henzohenrique.vasconcelos@gmail.com
 Trabalho apresentado como requisito parcial de avaliação.
 Utilização do conhecimentos de Linguagem de Programação, sendo Java a escolhida.
 
