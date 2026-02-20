@@ -69,5 +69,7 @@ public class LeitorTxt {
         return resultadoConvertido;
         //return new String[]{}; // Retorno genérico para o tipo estabelecido
     }
+
+
     
 }

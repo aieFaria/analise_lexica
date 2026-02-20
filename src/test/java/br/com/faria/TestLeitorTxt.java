@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+
+
 public class TestLeitorTxt {
     
     @Nested
@@ -47,6 +49,18 @@ public class TestLeitorTxt {
             assertArrayEquals(new String[]{"ola", "mundo", "querido", "falso"},
             resultado);
             
+
+        }
+
+        @Test
+        @DisplayName("Capturando erro de execução devido String muito grande")
+        public void stringGigantesca() {
+
+            // OutOfMemoryError exception = assertThrows(
+            //     OutOfMemoryError.class,
+            //     () -> LeitorTxt.separateText("LeitorTxt.geraErro()"));
+
+            // assertEquals("Não é possível somar valores NULL.", exception.getMessage());
 
         }
         

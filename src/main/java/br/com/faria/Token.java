@@ -9,6 +9,12 @@ public class Token extends Object {
     private String lexema;
     private String idLexema;
 
+    // Outra possibilidade de geração de tokens é a criação de um .json que contém todos 
+    // os tokens
+    public void gerarTokensPadrão() {
+
+    }
+
     /**
      * Método de sobre-escrita para imprimir Tokens de acordo
      * com as regras:

@@ -6,7 +6,7 @@ Utilização do conhecimentos de Linguagem de Programação, sendo Java a escolh
 
 
 ## 🚶 Passos a serem realizadas:
-- [✔️] - Criar lógica do programa;
+- [❌] - Criar lógica do programa;
 
 
 
@@ -58,7 +58,7 @@ Descreve o funcionamento das principais classes do projeto.
 
 -> Classes de teste em geral servem para verificação das funções criadas em determinada classe. Siga o padrão "Test + nome da classe.java"
 
-Criador de diagramas: https://app.diagrams.net/
+Criador de diagramas: https://app.diagrams.net/?splash=0#G1MNDvqLwhnGeQRzdopsxT-lrRcbgqdqLt#%7B%22pageId%22%3A%22JrWfula45WOMTxcmjdZU%22%7D
 
 2. ###  ♻️ Fluxo de execução da classe Main.java
 Descreve o funcionamento ideal do nosso programa. A chamada da função:
@@ -67,7 +67,7 @@ public static void main(String[] args) { ... }
 ```
 
 ## 👾 Como executar?
-A pasta "untracked" dispõe de arquivos de exemplo para validação dos testes do projeto. Por tanto é de suma importância mante-lo ativo até a finalização.
+📁 A pasta "untracked" dispõe de arquivos de exemplo para validação dos testes do projeto. Por tanto é de suma importância mante-lo ativo até a finalização.
 
 Pontos importantes a descrever:
 - Como executar o código: 
