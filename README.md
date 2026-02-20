@@ -19,7 +19,7 @@ Utilização do conhecimentos de Linguagem de Programação, sendo Java a escolh
 
 ## 📦 Disposição do programa
      .
-     ├── paciencia_pilha
+     ├── analise_lexica
      │   └── src
      │       ├── main
      │       │    └── java
@@ -47,7 +47,7 @@ Utilização do conhecimentos de Linguagem de Programação, sendo Java a escolh
      ├── target
      ├── README.md
      ├── pom.xml
-     └── analise_lexica.jar
+     └── analisador_lexico.jar
      .
 
 ## 👷 Desenvolvimento
