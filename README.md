@@ -6,7 +6,18 @@ Utilização do conhecimentos de Linguagem de Programação, sendo Java a escolh
 
 
 ## 🚶 Passos a serem realizadas:
-- [❌] - Criar lógica do programa;
+- [✔️] - Fazer a leitura do arquivo `.pix`;
+- [❌] - Criar a lista de tokens válidos;
+- [✔️] - Ler todos os símbolos do código de entrada;
+- [❌] - Reunir todos os lexemas menos espaços;
+- [❌] - Atualizar lista de tokens com base no código de entrada;
+- [❌] - Gerar um arquivo no formato csv. O conteúdo do arquivo é um
+texto no formato CSV contendo a tabela de símbolos;
+- [❌] - Subistituir os lexemas por ID, inserir o ID nos Tokens;
+- [❌] - Gerar um arquivo no formato `.pixobj`. O conteúdo do arquivo é
+um texto contendo o código tokenizado;
+- [❌] - Caso haja algum erro durante o processo da análise léxica, será gerado um arquivo
+log contendo o erro que foi gerado.
 
 
 
