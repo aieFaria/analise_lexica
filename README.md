@@ -66,7 +66,7 @@ Descreve o funcionamento ideal do nosso programa. A chamada da função:
 public static void main(String[] args) { ... }
 ```
 
-## 👾 Como executar?
+## 🔧 Como executar?
 📁 A pasta "untracked" dispõe de arquivos de exemplo para validação dos testes do projeto. Por tanto é de suma importância mante-lo ativo até a finalização.
 
 Pontos importantes a descrever:
