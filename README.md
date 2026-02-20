@@ -24,27 +24,22 @@ Utilização do conhecimentos de Linguagem de Programação, sendo Java a escolh
      │       ├── main
      │       │    └── java
      │       │         └── com.faria
-     │       │              ├── App.java
-     │       │              ├── ScreenMain.java
-     │       │              ├── BCard.java
-     │       │              ├── EstadoJogo.java
-     │       │              ├── PilhaGuard.java
-     │       │              ├── PilhaJogo.java
-     │       │              ├── AgrupamentoButoesControle.java
-     │       │              ├── enums
-     │       │              │    ├── Naipes.java
-     │       │              │    └── NumCarta.java
+     │       │              ├── Main.java
+     │       │              ├── LeitorTxt.java
+     │       │              ├── Token.java
+     │       │              ├── pasta1
+     │       │              │    ├── ClasseEX.java
+     │       │              │    └── ClasseEX.java
      │       │              │
-     │       │              └── telas
-     │       │                   ├── ScreenDeCompra.java
-     │       │                   ├── ScreenJogo.java
-     │       │                   ├── ScreenMain.java
-     │       │                   └── ScreenGuardar.java
+     │       │              └── enums
+     │       │                   ├── Tipagem.java
+     │       │                   └── ClasseEX.java
      │       │
-     │       └── test.java
-     │           └── testStack.java
+     │       └── test.java.br.com.faria
+     │           └── TestLeitorTxt.java
      │
      ├── target
+     ├── untracked
      ├── README.md
      ├── pom.xml
      └── analisador_lexico.jar
@@ -55,6 +50,16 @@ Utilização do conhecimentos de Linguagem de Programação, sendo Java a escolh
 1.  ### 📚 Principais Classes
 Descreve o funcionamento das principais classes do projeto.
 
+-> Classe Token irá representar nosso token, seus atributos recebem os parâmetros necessários que compõe ele. Para representação de varios token utilize uma lista de Token, Exemplo: List`<Token>` ou ArrayList`<Token>`.
+
+-> Classe LeitorTxt sevirá para fazer o intermédio entre o arquivo de texto e o código que fará a tratativa dos dados contidos nele. Utilizando primeiro o método bufferTxt para converter em String, ainda com espaçamentos, para depois utilizar o método separeteText para quebrar e dividir o texto em um String[] (array de String) delimitados por quais quer caracteres em branco.
+
+-> Enum Tipagem deverá conter os tipos possiveis de Tokens que podemos armazenar.
+
+-> Classes de teste em geral servem para verificação das funções criadas em determinada classe. Siga o padrão "Test + nome da classe.java"
+
+Criador de diagramas: https://app.diagrams.net/
+
 2. ###  ♻️ Fluxo de execução da classe Main.java
 Descreve o funcionamento ideal do nosso programa. A chamada da função:
 ```
@@ -62,11 +67,14 @@ public static void main(String[] args) { ... }
 ```
 
 ## 👾 Como executar?
+A pasta "untracked" dispõe de arquivos de exemplo para validação dos testes do projeto. Por tanto é de suma importância mante-lo ativo até a finalização.
+
 Pontos importantes a descrever:
-- Como jogar paciencia própriamente: 
-- Como seram realizadas as ações de jogo;
+- Como executar o código: 
+- Cuidados a serem tomados;
 
 
 ## ✒️ Autores: 
-| [<img src="https://avatars.githubusercontent.com/u/99749672?v=4" width=115><br><sub>Gabriel Alexandre</sub>](https://https://github.com/aieFaria) |
-| :---: |
+| [<img src="https://avatars.githubusercontent.com/u/99749672?v=4" width=115><br><sub>Gabriel Alexandre</sub>](https://https://github.com/aieFaria) |  [<img src="https://avatars.githubusercontent.com/u/147110604?v=4" width=115><br><sub>Henzo Henrique</sub>](https://github.com/HenzoHS) |
+| :---: | :---: |
+
