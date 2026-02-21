@@ -61,6 +61,9 @@ log contendo o erro que foi gerado.
 1.  ### 📚 Principais Classes
 Descreve o funcionamento das principais classes do projeto.
 
+IMPORTANTE: Strings delimitados por ''
+            Chave pix delimitados po ""
+
 -> Classe Token irá representar nosso token, seus atributos recebem os parâmetros necessários que compõe ele. Para representação de varios token utilize uma lista de Token, Exemplo: List`<Token>` ou ArrayList`<Token>`.
 
 -> Classe LeitorTxt sevirá para fazer o intermédio entre o arquivo de texto e o código que fará a tratativa dos dados contidos nele. Utilizando primeiro o método bufferTxt para converter em String, ainda com espaçamentos, para depois utilizar o método separeteText para quebrar e dividir o texto em um String[] (array de String) delimitados por quais quer caracteres em branco.

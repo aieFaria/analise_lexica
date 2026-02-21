@@ -1,5 +1,13 @@
 package br.com.faria;
 
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import br.com.faria.enums.Tipagem;
 
 public class Token extends Object {
@@ -11,7 +19,27 @@ public class Token extends Object {
 
     // Outra possibilidade de geração de tokens é a criação de um .json que contém todos 
     // os tokens
-    public void gerarTokensPadrão() {
+    public void leituraTokens() {
+
+        
+
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        JSONObject jsonObject = new JSONObject();
+        JSONParser parser = new JSONParser();
+        List<Object> retorno = new ArrayList<>();
+
+        Object objetoJSON = parser.parse(new FileReader("untracked/tokens.json"));
+        
+        
+
+
+
+        // JSONTokener tokener = new JSONTokener(file);
+        
+        // System.out.println(obj.toString());
 
     }
 
@@ -31,6 +59,16 @@ public class Token extends Object {
         }
 
     }
+
+    // public static void main(String[] args) {
+
+    //     Token t = new Token();
+    //     t.setLexema("Lexema");
+    //     t.setTipo(Tipagem.IDENTIFICADOR);
+    //     t.setIdLexema("1");
+
+    //     System.out.println(t);
+    // }
 
     public Tipagem getTipo() {
         return tipo;

@@ -1,6 +1,7 @@
 package br.com.faria;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class TestLeitorTxt {
         public void leTextoComSucesso() {
 
             LeitorTxt lt = new LeitorTxt();
-            String resultado = lt.bufferTxt("untracked/exemplo.txt");
+            String resultado = lt.bufferTxt("untracked/LEDAGER_programa.pix");
 
             assertEquals("oi eu não sei asa", resultado);
         }
@@ -28,8 +29,26 @@ public class TestLeitorTxt {
             LeitorTxt lt = new LeitorTxt();
             String resultado = lt.bufferTxt("untracked/ejksdh.txt");
 
-            assertEquals("untracked/ejksdh.txt (Arquivo ou diretório inexistente)",
-                         resultado);
+            switch (System.getProperty("os.name")) {
+                case "Windows":
+                    
+                    // Test para Windowns
+                    assertEquals("untracked\\ejksdh.txt (O sistema não pode encontrar o arquivo especificado)",
+                                resultado);
+
+                    break;
+                case "Linux":
+                    
+                    // Test para Linux
+                    assertEquals("untracked/ejksdh.txt (Arquivo ou diretório inexistente)",
+                                 resultado);
+
+                    break;
+            
+                default:
+                    break;
+            }
+
         }
         
     }
