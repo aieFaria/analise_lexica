@@ -7,9 +7,9 @@ Utilização do conhecimentos de Linguagem de Programação, sendo Java a escolh
 
 ## 🚶 Passos a serem realizadas:
 - [✔️] - Fazer a leitura do arquivo `.pix`;
-- [❌] - Criar a lista de tokens válidos;
+- [✔️] - Criar a primeira lista de tokens válidos; -> Arquivos gerados: tokens.json e Token.java
 - [✔️] - Ler todos os símbolos do código de entrada;
-- [❌] - Reunir todos os lexemas menos espaços;
+- [✔️] - Reunir todos os lexemas menos espaços; -> Função LeitorTxt.separeteText(.
 - [❌] - Atualizar lista de tokens com base no código de entrada;
 - [❌] - Gerar um arquivo no formato csv. O conteúdo do arquivo é um
 texto no formato CSV contendo a tabela de símbolos;
@@ -61,12 +61,11 @@ log contendo o erro que foi gerado.
 1.  ### 📚 Principais Classes
 Descreve o funcionamento das principais classes do projeto.
 
-IMPORTANTE: Strings delimitados por ''
-            Chave pix delimitados po ""
+IMPORTANTE: Como geraremos o token para o conteúdo dentro de '' ou ""? De qual tipo será?
 
 -> Classe Token irá representar nosso token, seus atributos recebem os parâmetros necessários que compõe ele. Para representação de varios token utilize uma lista de Token, Exemplo: List`<Token>` ou ArrayList`<Token>`.
 
--> Classe LeitorTxt sevirá para fazer o intermédio entre o arquivo de texto e o código que fará a tratativa dos dados contidos nele. Utilizando primeiro o método bufferTxt para converter em String, ainda com espaçamentos, para depois utilizar o método separeteText para quebrar e dividir o texto em um String[] (array de String) delimitados por quais quer caracteres em branco.
+-> Classe LeitorTxt sevirá para fazer o intermédio entre o arquivo de texto e o código que fará a tratativa dos dados contidos nele. Utilizando primeiro o método bufferTxt para converter em String, ainda com espaçamentos, para depois utilizar o método separeteText para quebrar e dividir o texto em um String[] (array de String) delimitados por quais quer caracteres em branco, entretanto dando prioridade para o agrupamento de caracteres delimitados por "" ou ''.
 
 -> Enum Tipagem deverá conter os tipos possiveis de Tokens que podemos armazenar.
 

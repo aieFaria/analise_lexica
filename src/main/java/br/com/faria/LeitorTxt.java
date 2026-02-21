@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LeitorTxt {
 
@@ -27,7 +30,7 @@ public class LeitorTxt {
             // presente no arquivo .txt
             while ( (texto = bReader.readLine()) != null ) {
                 sb.append(texto);
-                //sb.append("\n"); // Adicionar caso seja necessário considerar a quedra de linha
+                sb.append("\n"); // Adicionar caso seja necessário considerar a quedra de linha
             }
 
             bReader.close();
@@ -49,13 +52,12 @@ public class LeitorTxt {
             System.out.println("Saiu do try");
         }
 
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     /**
      * Função que separa todo texto de acordo com os espaçamentos presentes entre 
      * os textos. De modo a criar objetos que podem ser tratados de diferentes modos
-     * de acordo com as regras estabelecidas futuramente
      * 
      * 
      * @param textoCompleto  Texto completo que se deseja separar em Array de String
@@ -64,7 +66,22 @@ public class LeitorTxt {
     public String[] separateText(String textoCompleto) {
 
         // "\s" conjunto composto por caracteres: space, tab e newline
-        String[] resultadoConvertido = textoCompleto.split("\\s+");
+        String[] resultadoConvertido;
+
+        // Lista encadeada que mantém elementos por ordem de adição
+        LinkedList<String> lista = new LinkedList<>();
+
+        // Expressão regular para encontrar grupos estabelecidos
+        String delimitacoes = "\"[^\"]*\"|'[^']*'|\\S+";
+        
+        Pattern pattern = Pattern.compile(delimitacoes);
+        Matcher matcher = pattern.matcher(textoCompleto);
+        
+        while (matcher.find()) {
+            lista.add(matcher.group());
+        }
+
+        resultadoConvertido = lista.toArray(new String[0]);
 
         return resultadoConvertido;
         //return new String[]{}; // Retorno genérico para o tipo estabelecido

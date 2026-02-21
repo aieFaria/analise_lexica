@@ -20,7 +20,7 @@ public class TestLeitorTxt {
             LeitorTxt lt = new LeitorTxt();
             String resultado = lt.bufferTxt("untracked/LEDAGER_programa.pix");
 
-            assertEquals("oi eu não sei asa", resultado);
+            assertEquals("oi eu não sei \nasa", resultado);
         }
 
         @Test
@@ -69,6 +69,34 @@ public class TestLeitorTxt {
             resultado);
             
 
+        }
+
+        @Test
+        @DisplayName("Convertendo String delimitada por aspas simples com sucesso")
+        public void conversaoAspasSimplesArray() {
+
+            LeitorTxt lt = new LeitorTxt();
+            String[] resultado = lt.separateText("ola   \nmundo 'querido falso'");
+
+            // Comparação para verificar se os arrays possuem os mesmos elementos
+            // e também mesma ordem dos elementos
+            assertArrayEquals(new String[]{"ola", "mundo", "'querido falso'"},
+            resultado);
+
+        }
+
+        @Test
+        @DisplayName("Convertendo em array String que contenha texto delimitado por aspas duplas")
+        public void tes() {
+
+            LeitorTxt lt = new LeitorTxt();
+            String[] resultado = lt.separateText("ola   \"\nmundo querido\" falso");
+
+            // Comparação para verificar se os arrays possuem os mesmos elementos
+            // e também mesma ordem dos elementos
+            assertArrayEquals(new String[]{"ola", "\"\nmundo querido\"", "falso"},
+            resultado);
+            
         }
 
         @Test

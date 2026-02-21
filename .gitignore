@@ -1,3 +1,6 @@
+# Folders from dependencies
+target/
+
 # Compiled class file
 *.class
 

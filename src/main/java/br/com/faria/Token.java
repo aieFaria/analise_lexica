@@ -1,7 +1,6 @@
 package br.com.faria;
 
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -9,6 +8,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import br.com.faria.enums.Tipagem;
+import br.com.faria.enums.Constantes;
 
 public class Token extends Object {
 
@@ -17,30 +17,121 @@ public class Token extends Object {
     private String lexema;
     private String idLexema;
 
-    // Outra possibilidade de geração de tokens é a criação de um .json que contém todos 
-    // os tokens
-    public void leituraTokens() {
+    /**
+     * Método para geração de objetos do tipo Token para utiliza-los no código
+     * 
+     * Precisamos definir -> 
+     * #1 A função terá algum tipo de retorno? Se sim qual? 
+     * R.:
+     * #2 As regras para manipular os tokens que seram gerados depois. Devemos 
+     * interferir nos tokens 'padrao' ou apenas gerar novos em 'outros'?
+     * R.:
+     * 
+     * 
+     * @author Gabriel Faria
+     */
+    @SuppressWarnings("unchecked")
+    public void geraTokensFromJson() {
 
-        
+        JSONParser parser = new JSONParser();
+
+        try {
+
+            FileReader reader = new FileReader(Constantes.TOKENS_DIRETORIO);
+            Object obj = parser.parse(reader);
+            JSONObject jsonObject = (JSONObject) obj;
+
+            JSONArray tokensPadrao = (JSONArray) jsonObject.get("padrao");
+            //System.out.println(tokensPadrao.get(1));
+
+            for (Object objRegra: tokensPadrao) {
+
+                if (objRegra != null) {
+                    
+                    JSONObject regra = (JSONObject) objRegra;
+                    String tipo = (String) regra.get("tipo");
+                    List<String> lexema = (List<String>) regra.get("lexema");
+
+                    for(String lexemaDividido : lexema) {
+
+                        // Gerar o objeto da classe Token dentro desse for
+                        System.out.println(tipo);
+                        System.out.println(lexemaDividido);
+                    }
+
+                    //System.out.println(lexema);
+
+                } else {
+                    // Erro lançado quando faça leitura de objeto nulo
+                    throw new IndexOutOfBoundsException("Leitura de um objeto vazio"); 
+                }
+                
+            }
+            System.out.println();
+
+            JSONArray tokensOutros = (JSONArray) jsonObject.get("outros");
+            System.out.println(tokensOutros.size());
+            //System.out.println(tokensOutros);
+
+            for (Object objRegra : tokensOutros) {
+
+                if (objRegra != null) {
+
+                    JSONObject regra = (JSONObject) objRegra;
+                    String tipo = (String) regra.get("tipo");
+                    List<String> lexema = (List<String>) regra.get("lexema");
+
+                    for(String lexemaDividido : lexema) {
+
+                        // Gerar o objeto da classe Token dentro desse for
+                        System.out.println(tipo);
+                        System.out.println(lexemaDividido);
+                    }
+
+                } else {
+                    // Erro lançado quando faça leitura de objeto nulo
+                    throw new IndexOutOfBoundsException("Leitura de um objeto vazio");
+                }
+
+            }
+            
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
-    public static void main(String[] args) throws Exception {
+    /**
+     * Criar verificação de um item qualquer cujo objetivo é descobrir se é
+     * possivel gerar um token referente a ele. 
+     * 
+     * Onde ele buscará a referencia para verificar? Uma possibilidade é do arquivo
+     * {@hiperlink #tokens.json}, Outra seria definir aqui mesmo as regras através do enum 
+     * {@hiperlink #Tipagem.java}.
+     * 
+     * Onde devemos posicionar essa verificação, em qual classe faremos melhor proveito de
+     * sua utilizade?
+     * 
+     * 
+     * @param param  Parâmetro de entrada, aquele que se deseja verificar se é possivel gerar
+     *               um token para ele
+     * @return       Retornando true caso seja possivel gerar o token e false caso contrário
+     * 
+     * IMPORTANTE: No caso de ser falso deve haver alguma forma de registrar o erro para armazenar
+     *             em formato de 'log'
+     */
+    public boolean tokenizavel(String param) {
 
-        JSONObject jsonObject = new JSONObject();
-        JSONParser parser = new JSONParser();
-        List<Object> retorno = new ArrayList<>();
+        Tipagem tipoDoParametro;
 
-        Object objetoJSON = parser.parse(new FileReader("untracked/tokens.json"));
-        
-        
+        if (true) {
+            tipoDoParametro = Tipagem.DELIMITER;
+        } else {
 
+        }
 
-
-        // JSONTokener tokener = new JSONTokener(file);
-        
-        // System.out.println(obj.toString());
-
+        return true;
     }
 
     /**
