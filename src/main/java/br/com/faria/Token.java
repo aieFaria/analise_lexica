@@ -1,7 +1,9 @@
 package br.com.faria;
 
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,7 +24,7 @@ public class Token extends Object {
      * 
      * Precisamos definir -> 
      * #1 A função terá algum tipo de retorno? Se sim qual? 
-     * R.:
+     * R.: Retornar List<Token>
      * #2 As regras para manipular os tokens que seram gerados depois. Devemos 
      * interferir nos tokens 'padrao' ou apenas gerar novos em 'outros'?
      * R.:
@@ -102,6 +104,21 @@ public class Token extends Object {
 
     }
 
+
+    /**
+     * Método para inserir novos tokens ao arquivo tokens.json na categoria "outros"
+     * deve ser pensado para quando for chamado dentro o laço de repetição que fará leitura 
+     * o array de String que compõe todos os pedaços de código gerado pela função LeitorTxt.separateTxt()
+     * 
+     * @param parametros  Pensando em parametros: a Tipagem e Lexema. Ou então definir Tipagem nessa própria
+     *                    função de cadastramento do token.
+     */
+    public void cadastrarTokens() {
+
+        // Map<Tipagem, List<String>> mapaTokens = new HashMap<>(); // Opcional
+
+    }
+
     /**
      * Criar verificação de um item qualquer cujo objetivo é descobrir se é
      * possivel gerar um token referente a ele. 
@@ -117,6 +134,7 @@ public class Token extends Object {
      * @param param  Parâmetro de entrada, aquele que se deseja verificar se é possivel gerar
      *               um token para ele
      * @return       Retornando true caso seja possivel gerar o token e false caso contrário
+     *               Talvez fazer retornar Tipagem
      * 
      * IMPORTANTE: No caso de ser falso deve haver alguma forma de registrar o erro para armazenar
      *             em formato de 'log'
