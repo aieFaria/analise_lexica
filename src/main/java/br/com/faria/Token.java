@@ -32,10 +32,9 @@ public class Token extends Object {
      * Precisamos definir -> 
      * #1 A função terá algum tipo de retorno? Se sim qual? 
      * R.: Retornar List<Token>
-     * #2 As regras para manipular os tokens que seram gerados depois. Devemos 
-     * interferir nos tokens 'padrao' ou apenas gerar novos em 'outros'?
-     * R.:
      * 
+     * IMPORTANTE: CRIAR TABELA SE SIMBOLOS SIMUNTANEAMENTE COM ESSA GERAÇÃO DE TOKENS APARITIR DO JSON
+     *             SENDO ASSIM ESTA FUNÇÃO SOMENTE DEVE SER CHAMADA DEPOIS DA FUNÇÃO {@link cadastrarTokens}
      * 
      * @author Gabriel Faria
      */
@@ -49,16 +48,10 @@ public class Token extends Object {
             FileReader reader = new FileReader(Constantes.TOKENS_DIRETORIO);
             Object obj = parser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
+            FileWriter writeFile = null;
 
             JSONArray tokensPadrao = (JSONArray) jsonObject.get("padrao");
 
-            FileWriter writeFile = null;
-            writeFile = new FileWriter("untracked/tokens2.json");
-            //System.out.println(JSONValue.toJSONString(saidaJson));
-            writeFile.write(JSONValue.toJSONString(tokensPadrao));
-            writeFile.close();
-            System.out.println(tokensPadrao);
-            //System.out.println(tokensPadrao.get(1));
 
             for (Object objRegra: tokensPadrao) {
 
