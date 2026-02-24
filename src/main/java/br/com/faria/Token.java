@@ -217,20 +217,6 @@ public class Token extends Object {
         }
         
 
-        // switch (criarToken("idLexema")) {
-        //     case DELIMITER:
-                
-        //         break;
-        //     case IDENTIFICADOR:
-                
-        //         break;
-        
-        //     default:
-        //         break;
-        // }
-
-        // Map<Tipagem, List<String>> mapaTokens = new HashMap<>(); // Opcional
-
     }
 
     public static void main(String[] args) {
