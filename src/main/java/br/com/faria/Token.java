@@ -1,16 +1,17 @@
 package br.com.faria;
 
 import java.io.FileReader;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import br.com.faria.enums.Tipagem;
 import br.com.faria.enums.Constantes;
+import br.com.faria.enums.Tipagem;
 
 public class Token extends Object {
 
@@ -18,6 +19,7 @@ public class Token extends Object {
     private Tipagem tipo;
     private String lexema;
     private String idLexema;
+    private boolean classe;  // Verdadeiro -> Token padrão, Falso -> Token outros
 
     /**
      * Método para geração de objetos do tipo Token para utiliza-los no código
@@ -59,6 +61,7 @@ public class Token extends Object {
                         // Gerar o objeto da classe Token dentro desse for
                         System.out.println(tipo);
                         System.out.println(lexemaDividido);
+                        System.out.println(true);
                     }
 
                     //System.out.println(lexema);
@@ -88,6 +91,7 @@ public class Token extends Object {
                         // Gerar o objeto da classe Token dentro desse for
                         System.out.println(tipo);
                         System.out.println(lexemaDividido);
+                        System.out.println(false);
                     }
 
                 } else {
@@ -115,6 +119,18 @@ public class Token extends Object {
      */
     public void cadastrarTokens() {
 
+        // switch (criarToken("idLexema")) {
+        //     case DELIMITER:
+                
+        //         break;
+        //     case IDENTIFICADOR:
+                
+        //         break;
+        
+        //     default:
+        //         break;
+        // }
+
         // Map<Tipagem, List<String>> mapaTokens = new HashMap<>(); // Opcional
 
     }
@@ -133,23 +149,112 @@ public class Token extends Object {
      * 
      * @param param  Parâmetro de entrada, aquele que se deseja verificar se é possivel gerar
      *               um token para ele
-     * @return       Retornando true caso seja possivel gerar o token e false caso contrário
-     *               Talvez fazer retornar Tipagem
+     * @return       Retorna o tipo o qual o parametro se encaixa caso encontre token válido
+     *               do contrário retorna null.
      * 
      * IMPORTANTE: No caso de ser falso deve haver alguma forma de registrar o erro para armazenar
      *             em formato de 'log'
      */
-    public boolean tokenizavel(String param) {
+    public static Token criarToken(String param) {
 
-        Tipagem tipoDoParametro;
+        Token t = new Token();
+        List<Token> listaPossiveisTokens = new ArrayList<>(); // Lista dos possiveis token gerados pelo parametro
 
-        if (true) {
-            tipoDoParametro = Tipagem.DELIMITER;
-        } else {
-
+        // Regex para encontrar estruturas do bloco principal
+        Pattern kw_BP = Pattern.compile("(\\bLEDGER\\b|\\bCLOSE\\b)");
+        Matcher matcherKW_BP = kw_BP.matcher(param);
+        if( matcherKW_BP.find() ) {
+            t.setLexema(param);
+            t.setTipo(Tipagem.KW_BP);
+            listaPossiveisTokens.add(t);
         }
 
-        return true;
+        // Regex para encontrar estrutura de saída
+        Pattern kw_EC = Pattern.compile("(?<!\\S)\\$>(?!\\S)");
+        Matcher matcherKW_EC = kw_EC.matcher(param);
+        if( matcherKW_EC.find() ) {
+            t.setLexema(param);
+            t.setTipo(Tipagem.KW_EC);
+            listaPossiveisTokens.add(t);
+        }
+        
+        // Regex para encontrar operadores relacionais
+        Pattern kw_OR = Pattern.compile("(?<!\\S)(==|>>|>=|<=|!=|<<)(?!\\S)");
+        Matcher matcherKW_OR = kw_OR.matcher(param);
+        if( matcherKW_OR.find() ) {
+            t.setLexema(param);
+            t.setTipo(Tipagem.KW_OR);
+            listaPossiveisTokens.add(t);
+        }
+
+        // Regex para encontrar tipos de variaveis
+        // Realocar para fora desse bloco, implementar no for que percorre a List<String> que
+        // contém o código dividido pegando primeiro elemento para fazer verificação
+        // Passou nos testes, LEMBRETE: Retirar testes quando remover esse bloco daqui
+        Pattern tipo = Pattern.compile("(?<!\\S)(#|\\$|!|@|\\?|~)(?!\\S)");
+        Matcher matcherTIPO = tipo.matcher(param);
+        if( matcherTIPO.find() ) {
+            t.setLexema(param);
+            t.setTipo(Tipagem.TIPO);
+            listaPossiveisTokens.add(t);
+        }
+
+        // Regex para encontrar declaração de variaveis
+        Pattern kw_D = Pattern.compile("\\b(LET)\\b");
+        Matcher matcherKW_D = kw_D.matcher(param);
+        if( matcherKW_D.find() ) {
+            t.setLexema(param);
+            t.setTipo(Tipagem.KW_D);
+            listaPossiveisTokens.add(t);
+        }
+
+        // Regex para encontrar operadores lógicos
+        Pattern kw_OL = Pattern.compile("(?<!\\S)(&&|\\|\\||!!)(?!\\S)");
+        Matcher matcherKW_OL = kw_OL.matcher(param);
+        if( matcherKW_OL.find() ) {
+            t.setLexema(param);
+            t.setTipo(Tipagem.KW_OL);
+            listaPossiveisTokens.add(t);
+        }
+
+        // Regex para encontrar operadores relacionais
+        Pattern kw_OA = Pattern.compile("(?<!\\S)(<-)(?!\\S)");
+        Matcher matcherKW_OA = kw_OA.matcher(param);
+        if( matcherKW_OA.find() ) {
+            t.setLexema(param);
+            t.setTipo(Tipagem.KW_OA);
+            listaPossiveisTokens.add(t);
+        }
+
+        // Regex para encontrar operadores aritméticos 
+        Pattern kw_OPA = Pattern.compile("(?<!\\S)(\\+\\+|--|\\*\\*|//|%%|(|))(?!\\S)");
+        Matcher matcherKW_OPA = kw_OPA.matcher(param);
+        if( matcherKW_OPA.find() ) {
+            t.setLexema(param);
+            t.setTipo(Tipagem.KW_OPA);
+            listaPossiveisTokens.add(t);
+        }
+
+        // Regex para encontrar numeros, seja inteiros quanto decimais 
+        Pattern number = Pattern.compile("\\b\\d+.?\\d+\\b");
+        Matcher matcherNUMBER = number.matcher(param);
+        if( matcherNUMBER.find() ) {
+            t.setLexema(param);
+            t.setTipo(Tipagem.NUMBER);
+            listaPossiveisTokens.add(t);
+        }
+
+        // Regex para encontrar declaração de variaveis lembrando que esse é o mais baixo nível
+        Pattern identificador = Pattern.compile("\\S+");
+        Matcher matcherIDENTIFICADOR = identificador.matcher(param);
+        if( matcherIDENTIFICADOR.find() && listaPossiveisTokens.size() < 1 ) {
+            t.setLexema(param);
+            t.setTipo(Tipagem.IDENTIFICADOR);
+            listaPossiveisTokens.add(t);
+        }
+
+
+        return listaPossiveisTokens.get(0);
     }
 
     /**
@@ -157,14 +262,32 @@ public class Token extends Object {
      * com as regras:
      *  - Caso exista um ID para o lexema imprima ele
      *  - Caso não exista ID para o lexema imprima o próprio lexema
+     *  - Caso seja um token padrão imprima apenas o tipo
      */
     @Override
     public String toString() {
 
         if (idLexema != null) {
-            return String.format("<%s, %s>", tipo, idLexema);
+            return this.classe ? String.format("<%s>", this.tipo) : 
+                   String.format("<%s, %s>", this.tipo, this.idLexema);
         } else {
-            return String.format("<%s, %s>", tipo, lexema);
+            return this.classe ? String.format("<%s>", this.tipo) : 
+                   String.format("<%s, %s>", this.tipo, this.lexema);
+        }
+
+    }
+
+
+    public boolean equals(Token tokenVerificacao) {
+
+        if(this.tipo.equals( tokenVerificacao.getTipo() ) && this.lexema == tokenVerificacao.getLexema()) {
+            return true;
+        } else {
+            // Para perceber erros de mesmo ID para diferentes lexemas
+            if(this.idLexema == tokenVerificacao.getIdLexema() && this.idLexema != null && tokenVerificacao.getIdLexema() != null)
+                return true;  
+            
+            return false;
         }
 
     }
