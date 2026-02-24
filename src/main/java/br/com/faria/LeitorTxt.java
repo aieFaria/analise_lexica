@@ -71,7 +71,7 @@ public class LeitorTxt {
         // Lista encadeada que mantém elementos por ordem de adição
         LinkedList<String> lista = new LinkedList<>();
 
-        // Expressão regular para encontrar grupos estabelecidos
+        // Expressão regular para encontrar grupos quaisquer de Caracteres
         String delimitacoes = "\"[^\"]*\"|'[^']*'|\\S+";
         
         Pattern pattern = Pattern.compile(delimitacoes);
