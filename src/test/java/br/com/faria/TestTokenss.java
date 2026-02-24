@@ -1,9 +1,12 @@
 package br.com.faria;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Nested;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.security.InvalidParameterException;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -99,6 +102,19 @@ public class TestTokenss {
             t1.setTipo(Tipagem.NUMBER);
             assertTrue( t1.equals( Token.criarToken("40.12") ) );
 
+            // Teste de texto literal
+            t1.setLexema("gabriel.alexandre@estudante.ifgoiano.edu.br");
+            t1.setTipo(Tipagem.TEXTO_LITERAL);
+            assertTrue( t1.equals( Token.criarToken("gabriel.alexandre@estudante.ifgoiano.edu.br", 2) ) );
+
+            t1.setLexema("Papai noel é foda");
+            t1.setTipo(Tipagem.TEXTO_LITERAL);
+            assertTrue( t1.equals( Token.criarToken("Papai noel é foda", 2) ) );
+
+            t1.setLexema("");
+            t1.setTipo(Tipagem.TEXTO_LITERAL);
+            assertTrue( t1.equals( Token.criarToken("", 2) ) );
+
             // Teste de tipos de variaveis
             t1.setLexema("!");
             t1.setTipo(Tipagem.TIPO);
@@ -123,6 +139,14 @@ public class TestTokenss {
             t1.setLexema("~");
             t1.setTipo(Tipagem.TIPO);
             assertTrue( t1.equals( Token.criarToken("~") ) );
+        }
+
+        @Test
+        @DisplayName("Verificação de um token inexistente")
+        public void inexisteToken() {
+
+            assertThrows(InvalidParameterException.class, () -> {Token.criarToken("");});
+
         }
         
     }

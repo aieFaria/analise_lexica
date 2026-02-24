@@ -14,8 +14,8 @@ public enum Tipagem {
     KW_OA("KW_OA"),                   // Operadores de atribuição  V 
     KW_OR("KW_OR"),                   // Operadores Relacionais V
     KW_OL("KW_OL"),                   // Operadores Lógicos V
-    DELIMITER("DELIMITER"),           // Delimitadore de conteúdo String, Chave PIX, Prioridades: Parenteses esquerda e diteira
-    TEXTO_LITERAL("TEXTO_LITERAL");   // Texto formado por quaisquer caracteres, String
+    DELIMITER("DELIMITER"),           // Delimitadore de conteúdo String, Chave PIX V
+    TEXTO_LITERAL("TEXTO_LITERAL");   // Texto formado por quaisquer caracteres, String V
 
     private String str;
 
