@@ -10,7 +10,7 @@ Utilização do conhecimentos de Linguagem de Programação, sendo Java a escolh
 - [✔️] - Criar a primeira lista de tokens válidos; -> Arquivos gerados: tokens.json e Token.java
 - [✔️] - Ler todos os símbolos do código de entrada;
 - [✔️] - Reunir todos os lexemas menos espaços; -> Função LeitorTxt.separeteText(.
-- [❌] - Atualizar lista de tokens com base no código de entrada;
+- [🔘] - Atualizar lista de tokens com base no código de entrada;
 - [❌] - Gerar um arquivo no formato csv. O conteúdo do arquivo é um
 texto no formato CSV contendo a tabela de símbolos;
 - [❌] - Subistituir os lexemas por ID, inserir o ID nos Tokens;

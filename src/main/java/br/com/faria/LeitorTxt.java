@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -81,12 +83,59 @@ public class LeitorTxt {
             lista.add(matcher.group());
         }
 
+        System.out.println( lista.contains("delimitacoes") );
+        lista.remove(0); // é possivel remover elemento com base em index
+
         resultadoConvertido = lista.toArray(new String[0]);
 
         return resultadoConvertido;
         //return new String[]{}; // Retorno genérico para o tipo estabelecido
     }
 
+    /**
+     * Método para geração de array com elementos exclusivos com base nas regras estabelecidas 
+     * para uso na chamada da função Token.cadastrarToken( @param array ) e dessa forma 
+     * gerar IDs únicos para cada token
+     * 
+     * @param arrayString  Parametro provindo do método {@link separateText}
+     * 
+     * @return             Retorna um String[], array de String, que não é por obrigação ordenado
+     *                     pois sua função é entregar um array sem elementos duplicados.
+     */
+    public String[] removerDuplicados(String[] arrayString) {
+
+        List<String> listaRetorno = new ArrayList<>(); 
+
+        for(int i=0; i<arrayString.length ; i++) {
+
+            // arrayString[i].length();
+            // arrayString[i].charAt(0); //Pegando primeiro caractere
+            // arrayString[i].charAt(arrayString[j].length()-1); //Pegando ultimo caractere
+
+            // Condicional para garantir que cada texto literal seja único, String ou Chave Pix
+            if(arrayString[i].charAt(0) == '\'' && arrayString[i].charAt(arrayString[i].length()-1) == '\'' ||
+                arrayString[i].charAt(0) == '\"' && arrayString[i].charAt(arrayString[i].length()-1) == '\"') {
+
+                listaRetorno.add(arrayString[i]);
+                continue;
+            }
+            
+            // Caso elemento já esteja na lista pule para próxima iteração
+            // do contrário adicione na lista
+            if (listaRetorno.contains(arrayString[i])) {
+                continue;
+            } else {
+                listaRetorno.add(arrayString[i]);
+            }
+            
+
+        }
+
+        
+
+        return listaRetorno.toArray(new String[0]);
+
+    }
 
     
 }

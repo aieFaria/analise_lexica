@@ -48,7 +48,7 @@ public class Token extends Object {
             FileReader reader = new FileReader(Constantes.TOKENS_DIRETORIO);
             Object obj = parser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
-            FileWriter writeFile = null;
+            FileWriter writeFile = null; // Usar para escrever o .csv
 
             JSONArray tokensPadrao = (JSONArray) jsonObject.get("padrao");
 
@@ -116,8 +116,9 @@ public class Token extends Object {
 
     /**
      * Método para inserir novos tokens ao arquivo tokens.json na categoria "outros"
-     * deve ser pensado para quando for chamado dentro o laço de repetição que fará leitura 
-     * o array de String que compõe todos os pedaços de código gerado pela função LeitorTxt.separateTxt()
+     * mantendo os tokens da categoria padrão inalterados. 
+     * 
+     * Concatena tokens de mesmo tipo antes de fazer a escrita no arquivo .json
      * 
      * @param listaDeTokens  Passar a lista de tokens gerados para que seja possivel salvá-los
      *                       no arquivo .json que salva os tokens.
@@ -125,8 +126,6 @@ public class Token extends Object {
      * IMPORTANTE: É NECESSARIO PASSAR LISTA DO TOKEN UNICOS SEM QUE HAJA DUPLICATAS
      */
     public void cadastrarTokens(List<Token> listaDeTokens) {
-
-        // Concatenar tokens de mesmo tipo antes de fazer a escrita no arquivo json
 
         JSONParser parser = new JSONParser();
         FileWriter writeFile = null;
@@ -192,7 +191,10 @@ public class Token extends Object {
             JSONObject jsonObject = (JSONObject) obj;
             StringBuilder sb = new StringBuilder();
 
+            // Copiando tokens padrão para mante-lo no .json gerado com os novos tokens
             JSONArray tokensPadrao = (JSONArray) jsonObject.get("padrao");
+
+            // Criando token.json corretamente formatado
             sb.append(String.format("{\n  \"padrao\":%s,\n   \"outros\":%s\n}", tokensPadrao.toString().replace("},", "},\n").replace("{", "\r        {").replace("\n", ""), saidaJson));
 
             writeFile = new FileWriter(Constantes.TOKENS_DIRETORIO);
@@ -288,6 +290,15 @@ public class Token extends Object {
                     listaPossiveisTokens.add(t);
                 }
 
+                // Regex para encontrar estrutura condicionais
+                Pattern kw_COND = Pattern.compile("(\\bIF\\b|(?<!\\S)\\:\\:(?!\\S))");
+                Matcher matcherKW_COND = kw_COND.matcher(param);
+                if( matcherKW_COND.find() ) {
+                    t.setLexema(param);
+                    t.setTipo(Tipagem.KW_COND);
+                    listaPossiveisTokens.add(t);
+                }
+
                 // Regex para encontrar tipos de variaveis
                 // Realocar para fora desse bloco, implementar no for que percorre a List<String> que
                 // contém o código dividido pegando primeiro elemento para fazer verificação
@@ -297,6 +308,16 @@ public class Token extends Object {
                 if( matcherTIPO.find() ) {
                     t.setLexema(param);
                     t.setTipo(Tipagem.TIPO);
+                    listaPossiveisTokens.add(t);
+                }
+
+                // Regex para encontrar delimitadores
+                // Mesma coisa do regex imeditamente acima
+                Pattern delimiter = Pattern.compile("(\"|'|\\{|\\})");
+                Matcher matcherDELIMITER = delimiter.matcher(param);
+                if( matcherDELIMITER.find() ) {
+                    t.setLexema(param);
+                    t.setTipo(Tipagem.DELIMITER);
                     listaPossiveisTokens.add(t);
                 }
 
@@ -409,8 +430,9 @@ public class Token extends Object {
             return true;
         } else {
             // Para perceber erros de mesmo ID para diferentes lexemas
-            if(this.idLexema.equals(tokenVerificacao.getIdLexema()) && this.idLexema != null && tokenVerificacao.getIdLexema() != null)
-                return true;  
+            if(this.idLexema != null && tokenVerificacao.getIdLexema() != null)
+                if(this.idLexema.equals(tokenVerificacao.getIdLexema()) )
+                    return true;  
             
             return false;
         }

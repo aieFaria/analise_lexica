@@ -115,7 +115,17 @@ public class TestTokenss {
             t1.setTipo(Tipagem.TEXTO_LITERAL);
             assertTrue( t1.equals( Token.criarToken("", 2) ) );
 
-            // Teste de tipos de variaveis
+            // Teste de estrutura condicional
+            t1.setLexema("::");
+            t1.setTipo(Tipagem.KW_COND);
+            assertTrue( t1.equals( Token.criarToken("::") ) );
+
+            t1.setLexema("IF");
+            t1.setTipo(Tipagem.KW_COND);
+            assertTrue( t1.equals( Token.criarToken("IF") ) );
+
+
+            // Teste de tipos de variaveis [REMOVER]
             t1.setLexema("!");
             t1.setTipo(Tipagem.TIPO);
             assertTrue( t1.equals( Token.criarToken("!") ) );
@@ -139,6 +149,23 @@ public class TestTokenss {
             t1.setLexema("~");
             t1.setTipo(Tipagem.TIPO);
             assertTrue( t1.equals( Token.criarToken("~") ) );
+
+            // Teste delimitadores [REMOVER]
+            t1.setLexema("'");
+            t1.setTipo(Tipagem.DELIMITER);
+            assertTrue( t1.equals( Token.criarToken("'") ) );
+
+            t1.setLexema("\"");
+            t1.setTipo(Tipagem.DELIMITER);
+            assertTrue( t1.equals( Token.criarToken("\"") ) );
+
+            t1.setLexema("{");
+            t1.setTipo(Tipagem.DELIMITER);
+            assertTrue( t1.equals( Token.criarToken("{") ) );
+
+            t1.setLexema("}");
+            t1.setTipo(Tipagem.DELIMITER);
+            assertTrue( t1.equals( Token.criarToken("}") ) );
         }
 
         @Test

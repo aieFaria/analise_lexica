@@ -98,6 +98,7 @@ public class TestLeitorTxt {
             
         }
 
+
         @Test
         @DisplayName("Capturando erro de execução devido String muito grande")
         public void stringGigantesca() {
@@ -107,6 +108,28 @@ public class TestLeitorTxt {
             //     () -> LeitorTxt.separateText("LeitorTxt.geraErro()"));
 
             // assertEquals("Não é possível somar valores NULL.", exception.getMessage());
+
+        }
+        
+    }
+
+    @Nested
+    public class TesteRemoverDuplicados {
+        
+        @Test
+        @DisplayName("Removendo duplicados com sucesso")
+        public void duplicadosRemovidosComSucesso() {
+
+            LeitorTxt lt = new LeitorTxt();
+            String[] array = new String[]{"LEDGER", "Ledger", "transferencia", "transferencia", 
+                "IF", "IF", "'oi'", "'oi'", "\"chave\"", "\"chave\""
+            };
+            String[] resultado = lt.removerDuplicados(array);
+
+            // Comparação para verificar se os arrays possuem os mesmos elementos
+            // e também mesma ordem dos elementos
+            assertArrayEquals(new String[]{"LEDGER", "Ledger", "transferencia", "IF", "'oi'", "'oi'", "\"chave\"", "\"chave\""},
+            resultado);
 
         }
         

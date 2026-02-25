@@ -15,6 +15,7 @@ public enum Tipagem {
     KW_OR("KW_OR"),                   // Operadores Relacionais [ID único]
     KW_OL("KW_OL"),                   // Operadores Lógicos [ID único]
     DELIMITER("DELIMITER"),           // Delimitadore de conteúdo String, Chave PIX [ID único]
+    KW_COND("KW_COND"),               // Estrutura condicional do código [ID único]
     TEXTO_LITERAL("TEXTO_LITERAL");   // Texto formado por quaisquer caracteres, String 
 
     private String str;
