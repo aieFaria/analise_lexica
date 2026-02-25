@@ -10,4 +10,6 @@ package br.com.faria.enums;
  */
 public class Constantes {
     public final static String TOKENS_DIRETORIO = "untracked/tokens.json";
+    public final static String TABELA_SIMBOLOS_DIRETORIO = "untracked/tabelaSimbolos.csv";
+    public final static String PROGRAMA_DIRETORIO = "untracked/programa.pix";
 }

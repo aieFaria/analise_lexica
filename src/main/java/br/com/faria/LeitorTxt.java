@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -80,17 +81,44 @@ public class LeitorTxt {
         Matcher matcher = pattern.matcher(textoCompleto);
         
         while (matcher.find()) {
-            lista.add(matcher.group());
+
+            // Regex para encontrar simbolos que podem ser agrupados juntos
+            Pattern simbolos = Pattern.compile("(@|!|#|\\$|\\(|\\)|~|\\?)");
+            Matcher matcherSimbolos = simbolos.matcher(""+matcher.group().charAt(0));
+
+            //System.out.println(matcher.group().charAt(0));
+
+            if(matcherSimbolos.find()) {
+                lista.addAll(Arrays.asList(matcher.group().split(
+                    "(?<=.)(?=[@!#$()~?])|(?<=[@#()~?])(?=.)|(?<=\\$)(?!>)(?=.)|(?<=!)(?!=)(?=.)|(?<=!=)(?=.)|(?<=\\$>)(?=.)")));
+                /**
+                 * Endenda cada pedaço da REGEX:
+                 * [1]  (?<=.)(?=[@!#$()~?]) -> Separa antes de qualquer símbolo da lista;
+                 * [2]  (?<=[@#()~?])(?=.)   -> Separa depois dos símbolos que não têm exceção tipo: @, #, (, ), ~, ?;
+                 * [3]  (?<=\$)(?!>)(?=.)    -> Separa depois do $ a menos que o próximo seja >;
+                 * [4]  (?<=!)(?!=)(?=.)     -> Separa depois do ! a menos que o próximo seja =;
+                 * [5]  (?<=!=)(?=.)         -> Separa depois do bloco != inteiro;
+                 * [6]  (?<=\$>)(?=.)        -> Separa depois do bloco $> inteiro
+                 * 
+                 * [1] | [2] | [3] | [4] | [5] | [6]
+                 */
+                
+            } else {
+                lista.add(matcher.group());
+            }
+
+            
         }
 
-        System.out.println( lista.contains("delimitacoes") );
-        lista.remove(0); // é possivel remover elemento com base em index
+        //System.out.println( lista.contains("delimitacoes") );
+        //lista.remove(0); // é possivel remover elemento com base em index
 
         resultadoConvertido = lista.toArray(new String[0]);
 
         return resultadoConvertido;
         //return new String[]{}; // Retorno genérico para o tipo estabelecido
     }
+
 
     /**
      * Método para geração de array com elementos exclusivos com base nas regras estabelecidas 

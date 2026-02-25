@@ -14,6 +14,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
+//import com.opencsv.CSVWriter;
 
 import br.com.faria.enums.Constantes;
 import br.com.faria.enums.Tipagem;
@@ -33,22 +34,34 @@ public class Token extends Object {
      * #1 A função terá algum tipo de retorno? Se sim qual? 
      * R.: Retornar List<Token>
      * 
+     * @param tokens  Trata-se dos mesmos tokens gerados para 
+     * 
      * IMPORTANTE: CRIAR TABELA SE SIMBOLOS SIMUNTANEAMENTE COM ESSA GERAÇÃO DE TOKENS APARITIR DO JSON
      *             SENDO ASSIM ESTA FUNÇÃO SOMENTE DEVE SER CHAMADA DEPOIS DA FUNÇÃO {@link cadastrarTokens}
+     * 
      * 
      * @author Gabriel Faria
      */
     @SuppressWarnings("unchecked")
-    public void geraTokensFromJson() {
+    public List<Token> geraTokensFromJson() {
+        List<Token> tokens =  new ArrayList<>();
 
+        
         JSONParser parser = new JSONParser();
 
         try {
 
+            int contador = 0;
+            Token t = new Token();
+
             FileReader reader = new FileReader(Constantes.TOKENS_DIRETORIO);
             Object obj = parser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
-            FileWriter writeFile = null; // Usar para escrever o .csv
+            FileWriter writeFile = new FileWriter(Constantes.TABELA_SIMBOLOS_DIRETORIO); // Usar para escrever o .csv
+            // CSVWriter writer = new CSVWriter(writeFile); // Tentar como opicional
+
+            writeFile.write("id;lexema;token\n");
+            
 
             JSONArray tokensPadrao = (JSONArray) jsonObject.get("padrao");
 
@@ -62,25 +75,39 @@ public class Token extends Object {
                     List<String> lexema = (List<String>) regra.get("lexema");
 
                     for(String lexemaDividido : lexema) {
+                        contador++;
+                        t = new Token();
 
+                        writeFile.write(String.format("%d;%s;<%s>\n",contador, lexemaDividido, tipo));
                         // Gerar o objeto da classe Token dentro desse for
-                        System.out.println(tipo);
-                        System.out.println(lexemaDividido);
-                        System.out.println(true);
+                        // System.out.println(tipo);  //Tipo
+                        // System.out.println(lexemaDividido);  //lexema
+                        // System.out.println(contador);  //idLexema
+                        // System.out.println(true);
+
+                        
+                        t.setIdLexema(""+contador);
+                        t.setLexema(lexemaDividido);
+                        t.setTipo(convertTipagem(tipo));
+                        t.setClasse(true);
+                        tokens.add(t);
+                        
                     }
 
                     //System.out.println(lexema);
 
                 } else {
+                    writeFile.close();
                     // Erro lançado quando faça leitura de objeto nulo
                     throw new IndexOutOfBoundsException("Leitura de um objeto vazio"); 
                 }
                 
             }
-            System.out.println();
+            
+            
 
             JSONArray tokensOutros = (JSONArray) jsonObject.get("outros");
-            System.out.println(tokensOutros.size());
+            //System.out.println(tokensOutros.size());
             //System.out.println(tokensOutros);
 
             for (Object objRegra : tokensOutros) {
@@ -92,31 +119,62 @@ public class Token extends Object {
                     List<String> lexema = (List<String>) regra.get("lexema");
 
                     for(String lexemaDividido : lexema) {
+                        contador++;
+                        t = new Token();
 
+                        writeFile.write(String.format("%d;%s;<%s>\n",contador, lexemaDividido, tipo));
                         // Gerar o objeto da classe Token dentro desse for
-                        System.out.println(tipo);
-                        System.out.println(lexemaDividido);
-                        System.out.println(false);
+                        // System.out.println(tipo);  //Tipo
+                        // System.out.println(lexemaDividido);  //lexema
+                        // System.out.println(contador);  //idLexema
+                        // System.out.println(false);
+
+                        t.setIdLexema(""+contador);
+                        t.setLexema(lexemaDividido);
+                        t.setTipo(convertTipagem(tipo));
+                        t.setClasse(false);
+                        tokens.add(t);
                     }
 
                 } else {
+                    writeFile.close();
                     // Erro lançado quando faça leitura de objeto nulo
                     throw new IndexOutOfBoundsException("Leitura de um objeto vazio");
                 }
 
             }
-            
+            //writeFile.write("Dados");
+            writeFile.close();
 
+            // t.setLexema("LEDGER");
+            // t.setIdLexema("0");
+            // t.setTipo(Tipagem.KW_BP);
+            // t.setClasse(true);
+            // System.out.println(t);
+            // System.out.println(tokens.indexOf(t));
+            // System.out.println(tokens.get(0).equals(t));
+
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            
+            //writeFile.close();
         }
+
+        return tokens;  //Lista de tokens atualizada com os IDs
 
     }
 
 
     /**
      * Método para inserir novos tokens ao arquivo tokens.json na categoria "outros"
-     * mantendo os tokens da categoria padrão inalterados. 
+     * mantendo os tokens da categoria "padrao" inalterados. Se previna pois este método
+     * sobrescreve todos os elementos da categoria "outros", ou seja, os elementos seram apagados
+     * e os novos seram colocados no lugar.
+     * 
+     * Nota: È impossivel adicionar Tokens referente a estrutura principal, como KW_BP e DELIMITER,
+     *       na categoria "outros". A menos que seja feito manualmente.
      * 
      * Concatena tokens de mesmo tipo antes de fazer a escrita no arquivo .json
      * 
@@ -125,7 +183,7 @@ public class Token extends Object {
      * 
      * IMPORTANTE: É NECESSARIO PASSAR LISTA DO TOKEN UNICOS SEM QUE HAJA DUPLICATAS
      */
-    public void cadastrarTokens(List<Token> listaDeTokens) {
+    public static void cadastrarTokens(List<Token> listaDeTokens) {
 
         JSONParser parser = new JSONParser();
         FileWriter writeFile = null;
@@ -170,8 +228,8 @@ public class Token extends Object {
         }
 
         dfaMap.put("IDENTIFICADOR", saidaIdent.toString());
-        dfaMap.put("TEXTO_LITERAL", saidaNumbers.toString());
-        dfaMap.put("NUMBER", saidaText.toString());
+        dfaMap.put("TEXTO_LITERAL", saidaText.toString());
+        dfaMap.put("NUMBER", saidaNumbers.toString());
         
         StringBuilder saidaJson = new StringBuilder();
         
@@ -195,7 +253,7 @@ public class Token extends Object {
             JSONArray tokensPadrao = (JSONArray) jsonObject.get("padrao");
 
             // Criando token.json corretamente formatado
-            sb.append(String.format("{\n  \"padrao\":%s,\n   \"outros\":%s\n}", tokensPadrao.toString().replace("},", "},\n").replace("{", "\r        {").replace("\n", ""), saidaJson));
+            sb.append(String.format("{\n  \"padrao\":%s,\n   \"outros\":%s\n}", tokensPadrao.toString().replace("},", "},\n").replace("{\"t", "\r        {\"t").replace("\n", ""), saidaJson));
 
             writeFile = new FileWriter(Constantes.TOKENS_DIRETORIO);
             //System.out.println(String.format("{\n\"padrao\":%s,\n   \"outros\":%s\n}", tokensPadrao, saidaJson));
@@ -215,22 +273,19 @@ public class Token extends Object {
 
     }
 
-    public static void main(String[] args) {
-        Token t1 = new Token(); t1.setLexema("Programa"); t1.setTipo(Tipagem.IDENTIFICADOR);
-        Token t2 = new Token(); t2.setLexema("'"); t2.setTipo(Tipagem.NUMBER);
-        Token token = new Token();
+    // public static void main(String[] args) {
+    //     Token t1 = new Token(); t1.setLexema("LEDGERoo"); t1.setTipo(Tipagem.KW_BP);
+    //     Token t2 = new Token(); t2.setLexema("'"); t2.setTipo(Tipagem.NUMBER);
+    //     Token token = new Token();
 
-        token.cadastrarTokens(List.of(t1, t2));
-        //token.geraTokensFromJson();
-    }
+    //     //token.cadastrarTokens(List.of(t1, t2));
+    //     token.geraTokensFromJson();
+    // }
 
     /**
-     * Criar verificação de um item qualquer cujo objetivo é descobrir se é
+     * Método de verificação de um item qualquer cujo objetivo é descobrir se é
      * possivel gerar um token referente a ele. 
      * 
-     * Onde ele buscará a referencia para verificar? Uma possibilidade é do arquivo
-     * {@hiperlink #tokens.json}, Outra seria definir aqui mesmo as regras através do enum 
-     * {@hiperlink #Tipagem.java}.
      * 
      * Onde devemos posicionar essa verificação, em qual classe faremos melhor proveito de
      * sua utilizade?
@@ -403,6 +458,56 @@ public class Token extends Object {
         
     }
 
+    public Tipagem convertTipagem(String str) {
+
+        switch (str) {
+            case "IDENTIFICADOR":
+                return Tipagem.IDENTIFICADOR;
+                
+            case "KW_OPA":
+                return Tipagem.KW_OPA;
+                
+            case "KW_BP":
+                return Tipagem.KW_BP;
+                
+            case "KW_EC":
+                return Tipagem.KW_EC;
+                
+            case "NUMBER":
+                return Tipagem.NUMBER;
+                
+            case "TIPO":
+                return Tipagem.TIPO;
+                
+            case "KW_D":
+                return Tipagem.KW_D;
+                
+            case "KW_OA":
+                return Tipagem.KW_OA;
+                
+            case "KW_OR":
+                return Tipagem.KW_OR;
+                
+            case "KW_OL":
+                return Tipagem.KW_OL;
+                
+            case "DELIMITER":
+                return Tipagem.DELIMITER;
+                
+            case "KW_COND":
+                return Tipagem.KW_COND;
+                
+            case "TEXTO_LITERAL":
+                return Tipagem.TEXTO_LITERAL;
+        
+            default:
+                return null;
+                
+        }
+
+        
+    }
+
     /**
      * Método de sobre-escrita para imprimir Tokens de acordo
      * com as regras:
@@ -426,11 +531,11 @@ public class Token extends Object {
 
     public boolean equals(Token tokenVerificacao) {
 
-        if(this.tipo.equals( tokenVerificacao.getTipo() ) && this.lexema.equals( tokenVerificacao.getLexema() ) ) {
+        if(this.tipo == tokenVerificacao.getTipo() && this.lexema.equals( tokenVerificacao.getLexema() ) ) {
             return true;
         } else {
             // Para perceber erros de mesmo ID para diferentes lexemas
-            if(this.idLexema != null && tokenVerificacao.getIdLexema() != null)
+            if(this.idLexema != null || tokenVerificacao.getIdLexema() != null)
                 if(this.idLexema.equals(tokenVerificacao.getIdLexema()) )
                     return true;  
             
@@ -472,4 +577,16 @@ public class Token extends Object {
     public void setIdLexema(String idLexema) {
         this.idLexema = idLexema;
     }
+
+
+    public boolean isClasse() {
+        return classe;
+    }
+
+
+    public void setClasse(boolean classe) {
+        this.classe = classe;
+    }
+
+    
 }

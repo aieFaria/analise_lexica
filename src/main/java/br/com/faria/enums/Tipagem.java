@@ -28,6 +28,11 @@ public enum Tipagem {
     public String getStr() {
         return str;
     }
+
+    public boolean equals(Tipagem tip) {
+        return true;
+    }
+    
 }
 
 

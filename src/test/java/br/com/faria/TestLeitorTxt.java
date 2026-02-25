@@ -75,11 +75,11 @@ public class TestLeitorTxt {
         public void conversaoAspasSimplesArray() {
 
             LeitorTxt lt = new LeitorTxt();
-            String[] resultado = lt.separateText("ola   \nmundo 'querido falso'");
+            String[] resultado = lt.separateText("ola   \nmundo 'querido falso' pao 'casa\n show'");
 
             // Comparação para verificar se os arrays possuem os mesmos elementos
             // e também mesma ordem dos elementos
-            assertArrayEquals(new String[]{"ola", "mundo", "'querido falso'"},
+            assertArrayEquals(new String[]{"ola", "mundo", "'querido falso'", "pao", "'casa\n show'"},
             resultado);
 
         }
@@ -89,13 +89,24 @@ public class TestLeitorTxt {
         public void tes() {
 
             LeitorTxt lt = new LeitorTxt();
-            String[] resultado = lt.separateText("ola   \"\nmundo querido\" falso");
+            String[] resultado = lt.separateText("ola   \"\nmundo querido\"falso");
 
             // Comparação para verificar se os arrays possuem os mesmos elementos
             // e também mesma ordem dos elementos
             assertArrayEquals(new String[]{"ola", "\"\nmundo querido\"", "falso"},
             resultado);
             
+        }
+
+        @Test
+        @DisplayName("Verificando o desmenbramento de conjuntos não separados por space mas que devem ser separados")
+        public void correctSeparateTogether() {
+
+            LeitorTxt lt = new LeitorTxt();
+            String[] resultado = lt.separateText("IF (!pix != \"\") {");
+            //new String[]{"IF", "(", "!", "pix", "!=", "\"\"", ")", "{"}
+            assertArrayEquals(new String[]{"IF", "(", "!", "pix", "!=", "\"\"", ")", "{"}, resultado);
+
         }
 
 
