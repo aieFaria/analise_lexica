@@ -17,9 +17,9 @@ além dos espaços;
 texto no formato CSV contendo a tabela de símbolos;
 - [✔️] - Subistituir os lexemas por ID, inserir o ID nos Tokens; Retorno de Token.getTokenFromJson() contém a lista de tokens com ID atualizados
 - [❌] - Gerar um arquivo no formato `.pixobj`. O conteúdo do arquivo é
-um texto contendo o código tokenizado;
+um texto contendo o código tokenizado; Preciso decidir em qual classe ficará o método responsável por isso.
 - [❌] - Caso haja algum erro durante o processo da análise léxica, será gerado um arquivo
-log contendo o erro que foi gerado.
+log contendo o erro que foi gerado. Criar método na mesma classe que irá gerar `.pixobj`
 
 
 
