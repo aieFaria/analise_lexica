@@ -141,8 +141,11 @@ public class LeitorTxt {
             // arrayString[i].charAt(arrayString[j].length()-1); //Pegando ultimo caractere
 
             // Condicional para garantir que cada texto literal seja único, String ou Chave Pix
+            // Correção para manter símbolos meso que repetidos para corrigir a lógica do programa
             if(arrayString[i].charAt(0) == '\'' && arrayString[i].charAt(arrayString[i].length()-1) == '\'' ||
-                arrayString[i].charAt(0) == '\"' && arrayString[i].charAt(arrayString[i].length()-1) == '\"') {
+                arrayString[i].charAt(0) == '\"' && arrayString[i].charAt(arrayString[i].length()-1) == '\"'||
+                arrayString[i].charAt(0) == '$' || arrayString[i].charAt(0) == '@' || arrayString[i].charAt(0) == '!' ||
+                arrayString[i].charAt(0) == '?' || arrayString[i].charAt(0) == '~' || arrayString[i].charAt(0) == '#') {
 
                 listaRetorno.add(arrayString[i]);
                 continue;

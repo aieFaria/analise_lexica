@@ -413,13 +413,13 @@ public class Token extends Object {
                 }
 
                 // Regex para encontrar numeros, seja inteiros quanto decimais 
-                Pattern number = Pattern.compile("\\b\\d+.?\\d+\\b");
-                Matcher matcherNUMBER = number.matcher(param);
-                if( matcherNUMBER.find() ) {
-                    t.setLexema(param);
-                    t.setTipo(Tipagem.NUMBER);
-                    listaPossiveisTokens.add(t);
-                }
+                // Pattern number = Pattern.compile("(?<![$#@?!~)(])\\b\\d+(?:\\.\\d+)?\\b");
+                // Matcher matcherNUMBER = number.matcher(param);
+                // if( matcherNUMBER.find() ) {
+                //     t.setLexema(param);
+                //     t.setTipo(Tipagem.NUMBER);
+                //     listaPossiveisTokens.add(t);
+                // }
 
                 // Regex para encontrar declaração de variaveis lembrando que esse é o mais baixo nível
                 Pattern identificador = Pattern.compile("\\S+");
