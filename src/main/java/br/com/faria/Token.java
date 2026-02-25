@@ -193,7 +193,7 @@ public class Token extends Object {
             StringBuilder sb = new StringBuilder();
 
             JSONArray tokensPadrao = (JSONArray) jsonObject.get("padrao");
-            sb.append(String.format(String.format("{\n  \"padrao\":%s,\n   \"outros\":%s\n}", tokensPadrao.toString().replace("},", "},\n").replace("{", "\r        {").replace("\n", ""), saidaJson)));
+            sb.append(String.format("{\n  \"padrao\":%s,\n   \"outros\":%s\n}", tokensPadrao.toString().replace("},", "},\n").replace("{", "\r        {").replace("\n", ""), saidaJson));
 
             writeFile = new FileWriter(Constantes.TOKENS_DIRETORIO);
             //System.out.println(String.format("{\n\"padrao\":%s,\n   \"outros\":%s\n}", tokensPadrao, saidaJson));
@@ -207,13 +207,14 @@ public class Token extends Object {
             writeFile.close();
         } catch (Exception e) {
             // TODO: handle exception
+            System.out.println(e.getMessage());
         }
         
 
     }
 
     public static void main(String[] args) {
-        Token t1 = new Token(); t1.setLexema("oo"); t1.setTipo(Tipagem.IDENTIFICADOR);
+        Token t1 = new Token(); t1.setLexema("Programa"); t1.setTipo(Tipagem.IDENTIFICADOR);
         Token t2 = new Token(); t2.setLexema("'"); t2.setTipo(Tipagem.NUMBER);
         Token token = new Token();
 
