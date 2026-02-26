@@ -75,10 +75,35 @@ IMPORTANTE: Como geraremos o token para o conteúdo dentro de '' ou ""? De qual 
 Criador de diagramas: https://app.diagrams.net/?splash=0#G1MNDvqLwhnGeQRzdopsxT-lrRcbgqdqLt#%7B%22pageId%22%3A%22JrWfula45WOMTxcmjdZU%22%7D
 
 2. ###  ♻️ Fluxo de execução da classe Main.java
-Descreve o funcionamento ideal do nosso programa. A chamada da função:
-```
-public static void main(String[] args) { ... }
-```
+Pix Script
+
+O sistema opera através de um fluxo de processamento de strings baseado em estados e padrões definidos.
+	
+Leitura e Buffering (LeitorTxt.java): O processo inicia com a função bufferTxt, que utiliza FileReader e BufferedReader para converter o arquivo .pix em uma String manipulável. O bloco finally garante a saída do sistema de leitura independentemente de erros capturados.
+
+Desmembramento de Símbolos Agrupados: O código conta com uma lógica específica para separar operadores e delimitadores que estejam "colados". Utilizando Pattern e Matcher, o sistema identifica símbolos como (, !, $>, != e {, aplicando regras de lookahead e lookbehind para separá-los sem perder a integridade dos operadores compostos.
+
+Tokenização por Regex(token.json): A separação de lexemas no método separateText utiliza uma expressão regular robusta: \"[^\"]*\"|'[^']*'|\\S+. Essa lógica prioriza o agrupamento de caracteres dentro de aspas (simples ou duplas), impedindo que textos literais com espaços sejam fragmentados.
+
+
+### Atualização de Tokens e tabela de símbolos
+
+Configuração via JSON (tokens.json): As regras da linguagem são divididas em duas categorias:
+Padrao: Contém tokens fixos da gramática, como palavras-chave (LEDGER, IF, LET) e delimitadores.
+
+Outros: Armazena tokens dinâmicos identificados durante a execução, como IDENTIFICADOR, NUMBER e TEXTO_LITERAL.
+Representação de Tipagem (Tipagem.java): Um enum é utilizado para categorizar os tokens (ex: KW_BP para base do programa, KW_OA para atribuição), permitindo comparações rápidas e seguras no código.
+
+### Geração de saída e Objto direto(EscritaTxt.java)
+
+Arquivo Objeto .pixobj : A classe EscritaTxt gera este arquivo substituindo os lexemas originais por suas representações em token.
+Lógica de Substituição: O método substituirToken verifica se o lexema possui um ID na tabela de símbolos. Se for um TEXTO_LITERAL, o token é removido da lista após o uso para evitar duplicidade de IDs em objetos de conteúdo igual, mas alocações diferentes.
+Formatação: O arquivo .pixobj é formatado com quebras de linha a cada 3 iterações para facilitar a leitura humana e o processamento posterior.
+Validação
+
+Cultura de Testes (JUnit 5): O arquivo pom.xml define a dependência do junit-jupiter. Os testes em TestLeitorTxt.java e TestTokenss.java validam desde a leitura de arquivos inexistentes até a criação correta de tokens complexos como operadores relacionais (>=, !=) e lógicos (&&, ||).
+Gestão de Logs de Erro: Se um caractere inválido ou não mapeado é encontrado (como o símbolo Ψ registrado nos logs), o sistema utiliza o método log da classe EscritaTxt para gravar o erro com timestamp e o ponto exato da falha, sem interromper a execução do programa.
+
 
 ## 🔧 Como executar?
 📁 A pasta "untracked" dispõe de arquivos de exemplo para validação dos testes do projeto. Por tanto é de suma importância mante-lo ativo até a finalização.
