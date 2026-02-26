@@ -18,7 +18,7 @@ texto no formato CSV contendo a tabela de símbolos;
 - [✔️] - Subistituir os lexemas por ID, inserir o ID nos Tokens; Retorno de Token.getTokenFromJson() contém a lista de tokens com ID atualizados
 - [✔️] - Gerar um arquivo no formato `.pixobj`. O conteúdo do arquivo é
 um texto contendo o código tokenizado; Classe EscritaTxt.java
-- [🔘] - Caso haja algum erro durante o processo da análise léxica, será gerado um arquivo
+- [✔️] - Caso haja algum erro durante o processo da análise léxica, será gerado um arquivo
 log contendo o erro que foi gerado. Criar método na mesma classe que irá gerar `.pixobj`
 
 
@@ -39,17 +39,16 @@ log contendo o erro que foi gerado. Criar método na mesma classe que irá gerar
      │       │         └── com.faria
      │       │              ├── Main.java
      │       │              ├── LeitorTxt.java
+     │       │              ├── EscritaTxt.java
      │       │              ├── Token.java
-     │       │              ├── pasta1
-     │       │              │    ├── ClasseEX.java
-     │       │              │    └── ClasseEX.java
      │       │              │
      │       │              └── enums
      │       │                   ├── Tipagem.java
-     │       │                   └── ClasseEX.java
+     │       │                   └── Constantes.java
      │       │
      │       └── test.java.br.com.faria
-     │           └── TestLeitorTxt.java
+     │           ├── TestLeitorTxt.java
+     │           └── TestTokenss.java
      │
      ├── target
      ├── untracked
@@ -83,6 +82,8 @@ public static void main(String[] args) { ... }
 
 ## 🔧 Como executar?
 📁 A pasta "untracked" dispõe de arquivos de exemplo para validação dos testes do projeto. Por tanto é de suma importância mante-lo ativo até a finalização.
+
+
 
 Pontos importantes a descrever:
 - Como executar o código: 

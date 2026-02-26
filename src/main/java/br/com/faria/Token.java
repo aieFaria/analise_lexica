@@ -138,6 +138,9 @@ public class Token extends Object {
 
                 } else {
                     writeFile.close();
+
+                    EscritaTxt.log("\nImpossivel fazer a leitura de objeto vazio \n     at br.com.faria.Token.geraTokensFromJson(Token.java:145)\n", true);
+
                     // Erro lançado quando faça leitura de objeto nulo
                     throw new IndexOutOfBoundsException("Leitura de um objeto vazio");
                 }
@@ -156,6 +159,7 @@ public class Token extends Object {
 
             
         } catch (Exception e) {
+            EscritaTxt.log("\nErro capturado: "+ e.getMessage() +"\n     at br.com.faria.Token.geraTokensFromJson(Token.java:162)\n", true);
             System.out.println(e.getMessage());
         } finally {
             
@@ -266,7 +270,7 @@ public class Token extends Object {
             // JSONArray tokensPadrao = (JSONArray) jsonObject.get("padrao");
             writeFile.close();
         } catch (Exception e) {
-            // TODO: handle exception
+            EscritaTxt.log("\nErro capturado: "+ e.getMessage() +"\n     at br.com.faria.Token.cadastrarTokens(Token.java:173)\n", true);
             System.out.println(e.getMessage());
         }
         
@@ -422,7 +426,7 @@ public class Token extends Object {
                 // }
 
                 // Regex para encontrar declaração de variaveis lembrando que esse é o mais baixo nível
-                Pattern identificador = Pattern.compile("\\S+");
+                Pattern identificador = Pattern.compile("[!-ÿ]+");
                 Matcher matcherIDENTIFICADOR = identificador.matcher(param);
                 if( matcherIDENTIFICADOR.find() && listaPossiveisTokens.size() < 1 ) {
                     t.setLexema(param);
@@ -450,11 +454,15 @@ public class Token extends Object {
         }
 
         if(listaPossiveisTokens.size() < 1) {
+
+            EscritaTxt.log("\nImpossivel gerar token para: "+ param + "\n     at br.com.faria.Token.criarToken(Token.java:464)\n", true);
+
             // Capturar esse erro indica que não houveram matches possíveis então deve ser colocado no log
             throw new InvalidParameterException();
         }
 
-        return listaPossiveisTokens.get(0); // Significa priorizar o primeiro token encontrado nas REGEX
+        // Significa priorizar o primeiro token encontrado nas REGEX
+        return listaPossiveisTokens.get(0);
         
     }
 
@@ -501,6 +509,7 @@ public class Token extends Object {
                 return Tipagem.TEXTO_LITERAL;
         
             default:
+                EscritaTxt.log("\nNão foi encontrado TIPO de Token correnpondente para: "+ str +"\n at br.com.faria.Tipagem.convertTipagem(Tipagem.java:515)", true);
                 return null;
                 
         }

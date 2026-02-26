@@ -1,5 +1,6 @@
 package br.com.faria;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,6 +15,7 @@ public class Main {
         // Inicializando programa, criando texto completo do código
         LeitorTxt leitura = new LeitorTxt();
         String codigo = leitura.bufferTxt(Constantes.PROGRAMA_DIRETORIO);
+        EscritaTxt.log("Registros de erro da execução: ["+ LocalDateTime.now() + "]");
 
         String[] blocosCodigo = leitura.separateText(codigo);
         String[] blocosUnicos = leitura.removerDuplicados(blocosCodigo);

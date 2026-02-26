@@ -38,8 +38,8 @@ public class EscritaTxt {
                 writeFile.write(" " +substituirToken(stmt)+ " ");
                 //writeFile.write(" " +stmt+ " ");
 
-                // Regra de quebra de linha a cada 7 iterações
-                if(cont%7 == 0) {
+                // Regra de quebra de linha a cada 3 iterações
+                if(cont%3 == 0) {
                     writeFile.write("\n");
                     cont = 0;
                 }
@@ -67,7 +67,7 @@ public class EscritaTxt {
      * @param str
      * @return
      */
-    private Token substituirToken(String str) {
+    private String substituirToken(String str) {
 
         for (Token tk : this.tokensCorretos) {
 
@@ -78,12 +78,39 @@ public class EscritaTxt {
                     tokensCorretos.remove(tk);
                 }
 
-                return tk;
+                return tk.toString();
             }
 
         }
 
-        return new Token();
+        return str; //Caso não encontre o token, retorne a própria String de entrada
+    }
+
+    /**
+     * Método para limpar log no inicio da execução caso necessário, do contrário faça a únião
+     * daquilo que já existe 
+     */
+    public static void log(String conteudo) {
+        log(conteudo, false);
+    }
+    
+    // Método de sobrecarga
+    public static void log(String conteudo, boolean caso) {
+
+        
+        try {
+            FileWriter logWrite = new FileWriter(Constantes.LOG_DIRETORIO, caso);
+
+            logWrite.write(conteudo);
+
+            logWrite.close();
+
+        } catch (Exception e) {
+            System.out.println( e.getMessage() );
+        }
+        
+        
+        
     }
 
 }
