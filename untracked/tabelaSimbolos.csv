@@ -47,12 +47,16 @@ id;lexema;token
 46;nome;<IDENTIFICADOR>
 47;produto;<IDENTIFICADOR>
 48;valor;<IDENTIFICADOR>
-49;pix;<IDENTIFICADOR>
-50;'Denecley Alvim';<TEXTO_LITERAL>
-51;'Placa Nvidia 5070RTX';<TEXTO_LITERAL>
-52;soinformatica@gmail.com;<TEXTO_LITERAL>
-53;;<TEXTO_LITERAL>
-54;'Realizar transferência';<TEXTO_LITERAL>
-55;'Aguardando chave PIX';<TEXTO_LITERAL>
-56;4999.99;<NUMBER>
-57;4999;<NUMBER>
+49;123;<IDENTIFICADOR>
+50;pix;<IDENTIFICADOR>
+51;pix2;<IDENTIFICADOR>
+52;;;<IDENTIFICADOR>
+53;'Denecley Alvim';<TEXTO_LITERAL>
+54;'Placa Nvidia 5070RTX';<TEXTO_LITERAL>
+55;soinformatica@gmail.com;<TEXTO_LITERAL>
+56;soinformatica@gmail.com;<TEXTO_LITERAL>
+57;;<TEXTO_LITERAL>
+58;'Realizar transferência';<TEXTO_LITERAL>
+59;'Aguardando chave PIX';<TEXTO_LITERAL>
+60;4999.99;<NUMBER>
+61;10;<NUMBER>

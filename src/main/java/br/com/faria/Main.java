@@ -64,8 +64,10 @@ public class Main {
         Token.cadastrarTokens(listaTokensUnicos);
 
         Token t = new Token();
-        t.geraTokensFromJson(); // Lista de tokens atualizados com seus respectivos IDs, foi gerado simultâneamente a tabela de simbolos
+        EscritaTxt es = new EscritaTxt();
+        ; // Lista de tokens atualizados com seus respectivos IDs, foi gerado simultâneamente a tabela de simbolos
 
+        es.geraCodigoTokenizado(blocosCodigo, t.geraTokensFromJson());
         System.out.println("Olá mundo!");
         
     }
