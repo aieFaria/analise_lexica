@@ -70,7 +70,7 @@ public class Main {
         ; // Lista de tokens atualizados com seus respectivos IDs, foi gerado simultâneamente a tabela de simbolos
 
         es.geraCodigoTokenizado(blocosCodigo, t.geraTokensFromJson());
-        System.out.println("Olá mundo!");
+        //System.out.println("Olá mundo!");
         
     }
 }
