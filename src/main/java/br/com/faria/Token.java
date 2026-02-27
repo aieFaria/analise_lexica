@@ -428,7 +428,7 @@ public class Token extends Object {
                 // Regex para encontrar declaração de variaveis lembrando que esse é o mais baixo nível
                 // Regex alternativa (?=\S*[a-zA-ZÀ-ÿ\d])\S{2,}
                 // [!-ÿ]+
-                Pattern identificador = Pattern.compile("[!-ÿ]+");
+                Pattern identificador = Pattern.compile("\\b(?=[_$]*[a-zA-ZÀ-ÿ])[!-ÿ]+$");
                 Matcher matcherIDENTIFICADOR = identificador.matcher(param);
                 if( matcherIDENTIFICADOR.find() && listaPossiveisTokens.size() < 1 ) {
                     t.setLexema(param);
